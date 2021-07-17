@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        button#counts {
+            margin-left: 45vw;
+            margin-top: 45px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 1px solid red;
+            background-color: crimson;
+            font-size: 5em;
+            font-family: sans-serif;
+        }
+
+        button#del,
+        button#dec {
+            margin-left: 48vw;;
+        }
+
+        button#dec {
+            margin-top: 27vh;
+        }
+    </style>
+</head>
+<body>
+    <button id="dec" onclick="decrementCount()">Decrement count</button>
+
+    <button id="counts" onclick="increaseCount()">
+        <span id="number"></span>
+    </button>
+
+    <br><br><br><br>
+
+    <button id="del" onclick="deleteProgress()">Delete progress</button>
+
+    <script>
+        let countsNum;
+        if (localStorage.getItem("countsNum")) {
+            countsNum = localStorage.getItem("countsNum");
+        }
+        else {
+            countsNum = 0;
+        }
+
+        let counts = document.querySelector("#counts");
+        counts.textContent = countsNum;
+
+        function increaseCount() {
+            this.countsNum = +counts.textContent + 1
+            counts.textContent = this.countsNum;
+            localStorage.setItem("countsNum", this.countsNum);
+        }
+
+        function deleteProgress() {
+            this.countsNum = 0;
+            counts.textContent = this.countsNum;
+            localStorage.removeItem("countsNum")
+        }
+
+        function decrementCount() {
+            this.countsNum = +counts.textContent - 1;
+            if (this.countsNum <= 0) {
+                this.countsNum = 0;
+            }
+            counts.textContent = this.countsNum;
+            localStorage.setItem("countsNum", this.countsNum);
+        }
+    </script>
+</body>
+</html>
